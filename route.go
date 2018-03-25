@@ -40,7 +40,7 @@ var routes = Routes{
 	Route{
 		"ComingFilm",
 		"GET",
-		"/",
+		"/coming",
 		comingHandler,
 	},
 	Route{
