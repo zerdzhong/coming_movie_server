@@ -22,7 +22,7 @@ const FILMCOLNAME = "film"
 const COMINGFILMCOLNAME = "coming_films"
 
 // GetComingFilms 获取即将上映电影
-func (r Repository) GetComingFilms() DoubanFilms {
+func (r Repository) GetComingFilms() DoubanComingFilm {
 	session, err := mgo.Dial(SERVER)
 	if err != nil {
 		fmt.Println("Failed to establish connection to Mongo server:", err)
@@ -30,9 +30,9 @@ func (r Repository) GetComingFilms() DoubanFilms {
 
 	defer session.Close()
 	c := session.DB(DBNAME).C(COMINGFILMCOLNAME)
-	results := DoubanFilms{}
-	if err := c.Find(nil).All(&results); err != nil {
+	comingFilms := DoubanComingFilm{}
+	if err := c.Find(nil).All(&comingFilms); err != nil {
 		fmt.Println("Failed to write results:", err)
 	}
-	return results
+	return comingFilms
 }
