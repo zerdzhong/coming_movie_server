@@ -1,0 +1,7 @@
+package: github.com/zerdzhong/coming_movie_server
+import:
+- package: github.com/gorilla/mux
+  version: ^1.6.1
+- package: gopkg.in/mgo.v2
+  subpackages:
+  - bson
