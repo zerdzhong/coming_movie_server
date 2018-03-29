@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 
+	"gopkg.in/mgo.v2/bson"
+
 	"gopkg.in/mgo.v2"
 )
 
@@ -22,7 +24,7 @@ const FILMCOLNAME = "film"
 const COMINGFILMCOLNAME = "coming_films"
 
 // GetComingFilms 获取即将上映电影
-func (r Repository) GetComingFilms() DoubanComingFilm {
+func (r Repository) GetComingFilms() DoubanComingFilms {
 	session, err := mgo.Dial(SERVER)
 	if err != nil {
 		fmt.Println("Failed to establish connection to Mongo server:", err)
@@ -30,9 +32,25 @@ func (r Repository) GetComingFilms() DoubanComingFilm {
 
 	defer session.Close()
 	c := session.DB(DBNAME).C(COMINGFILMCOLNAME)
-	comingFilms := DoubanComingFilm{}
+	comingFilms := DoubanComingFilms{}
 	if err := c.Find(nil).All(&comingFilms); err != nil {
 		fmt.Println("Failed to write results:", err)
 	}
 	return comingFilms
+}
+
+// GetFilm 获取电影信息
+func (r Repository) GetFilm(filmID string) DoubanFilms {
+	session, err := mgo.Dial(SERVER)
+	if err != nil {
+		fmt.Println("Failed to establish connection to Mongo server:", err)
+	}
+
+	defer session.Close()
+	c := session.DB(DBNAME).C(FILMCOLNAME)
+	films := DoubanFilms{}
+	if err := c.Find(bson.M{"id": filmID}).All(&films); err != nil {
+		fmt.Println("Failed to write results:", err)
+	}
+	return films
 }
