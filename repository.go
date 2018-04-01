@@ -12,7 +12,7 @@ import (
 type Repository struct{}
 
 // SERVER the DB server
-const SERVER = "localhost:27017"
+const SERVER = "mongodb://mongo:27017"
 
 // DBNAME the name of the DB instance
 const DBNAME = "douban_film_db"

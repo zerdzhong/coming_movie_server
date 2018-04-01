@@ -1,0 +1,16 @@
+version: '3.0'
+
+services:
+  coming_movie_server:
+    container_name: "coming_movie_server"
+    build: .
+    ports:
+      - 8080:8080
+    external_links:
+      - film_scraper_mongodb  #link with https://github.com/zerdzhong/film_scraper
+    networks:
+      - film_scraper
+
+networks:
+  film_scraper:
+    external: true
