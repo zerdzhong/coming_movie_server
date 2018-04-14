@@ -1,8 +1,7 @@
-package main
+package app
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -11,7 +10,12 @@ import (
 var repos = Repository{}
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Welcome")
+	comingFilms := repos.GetComingFilms()
+	data, _ := json.Marshal(comingFilms)
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.WriteHeader(http.StatusOK)
+	w.Write(data)
 }
 
 func comingHandler(w http.ResponseWriter, r *http.Request) {
