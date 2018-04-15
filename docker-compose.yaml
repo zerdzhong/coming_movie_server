@@ -3,6 +3,7 @@ version: '3.0'
 services:
   coming_movie_server:
     container_name: "coming_movie_server"
+    image: zerdzhong/coming_movie_server
     build: .
     ports:
       - 8080:8080
